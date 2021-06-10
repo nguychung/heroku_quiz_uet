@@ -1,0 +1,97 @@
+<% include header4admin %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+  integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/style.css">
+<div class="container" style="margin-top:20px;">
+
+  <div class="tab">
+    <a href="admin/user" onclick="display_info(event, 'user_info')" id="defaultOpen">
+      <button class="tablinks" id="defaultOpen">
+        <i class="fa fa-user"></i>Quản lý user
+      </button>
+    </a>
+    <a href="admin/test">
+      <button class="tablinks">
+        <i class="fas fa-pen"></i>Quản lý bài thi
+      </button>
+    </a>
+    <a href="admin/do_test">
+      <button class="tablinks">
+        <i class="fa fa-book"></i>Các lượt làm bài thi
+      </button>
+    </a>
+    <a href="admin/log">
+      <button class="tablinks">
+        <i class="fa fa-question-circle"></i>Logs
+      </button>
+    </a>
+  </div>
+  <div id="user_info" class="profile-content">
+      <h5 style="text-align: right;"><i>Tổng lượt làm bài: <%= dos.length %></i></h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Tên bài test</th>
+          <th scope="col">Người làm</th>
+          <th scope="col">Giờ làm</th>
+          <th scope="col">Điểm đạt được</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (i in dos) { %>
+        <tr>
+          <th scope="row"><%= dos[i].do_id %></th>
+          <td><%= dos[i].t_name %></td>
+          <td><a href=<%= "/profile/" + dos[i].u_id %>><%= dos[i].u_email %></a></td>
+          <td><%= dos[i].time %></td>
+          <td><%= dos[i].mark %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<footer class="footer-area">
+  <!-- Top Footer Area -->
+  <div class="top-footer-area" style="height: 148px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Footer Logo -->
+          <div class="footer-logo">
+            <a href="index.html">
+              <h4 style="color:bisque;">Yourtest</h4>
+            </a>
+          </div>
+          <!-- Copywrite -->
+          <p><a href="#">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/bootstrap/popper.min.js"></script>
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
+<script src="js/login.js"></script>
+
+</body>
+
+</html>

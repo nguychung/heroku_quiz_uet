@@ -1,0 +1,142 @@
+<% include header4admin %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+  integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/style.css">
+<div class="container" style="margin-top:20px;">
+
+  <div class="tab">
+    <a href="admin/user" onclick="display_info(event, 'user_info')" id="defaultOpen">
+      <button class="tablinks" id="defaultOpen">
+        <i class="fa fa-user"></i>Quản lý user
+      </button>
+    </a>
+    <a href="admin/test">
+      <button class="tablinks">
+        <i class="fas fa-pen"></i>Quản lý bài thi
+      </button>
+    </a>
+    <a href="admin/do_test">
+      <button class="tablinks">
+        <i class="fa fa-book"></i>Các lượt làm bài thi
+      </button>
+    </a>
+    <a href="admin/log">
+      <button class="tablinks">
+        <i class="fa fa-question-circle"></i>Logs
+      </button>
+    </a>
+  </div>
+  <div id="user_info" class="profile-content">
+    <h5 style="text-align: right;"><i>Tổng số user: <%= users.length %></i></h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Họ</th>
+          <th scope="col">Tên</th>
+          <th scope="col">Email</th>
+          <th scope="col">Mật khẩu</th>
+          <th scope="col">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (i in users) { %>
+        <tr>
+          <th scope="row"><%= users[i].u_id %></th>
+          <td><%= users[i].u_firstName %></td>
+          <td><%= users[i].u_lastName %></td>
+          <td><%= users[i].u_email %></td>
+          <td><%= users[i].u_password %></td>
+          <td>
+            <button class="btn btn-success btn-sm" onclick=<%= "upgrade_user(" + users[i].u_id + ")"%>>Admin</button>
+            <a href=<%= "/profile/" + users[i].u_id %> target="_blank"><button
+                class="btn btn-info btn-sm">Profile</button></a>
+            <button class="btn btn-danger btn-sm" onclick=<%= "delete_user(" + users[i].u_id + ")"%>>Xóa</button>
+          </td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<footer class="footer-area">
+  <!-- Top Footer Area -->
+  <div class="top-footer-area" style="height: 148px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Footer Logo -->
+          <div class="footer-logo">
+            <a href="index.html">
+              <h4 style="color:bisque;">Yourtest</h4>
+            </a>
+          </div>
+          <!-- Copywrite -->
+          <p><a href="#">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;
+              <script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved | This template is made with <i class="fa fa-heart-o"
+                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/bootstrap/popper.min.js"></script>
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
+<script src="js/login.js"></script>
+<script>
+  function delete_user(id) {
+    if (confirm("Bạn có chắc chắn xóa người dùng này không ?")) {
+      $.ajax({
+        type: "DELETE",
+        url: '/profile/' + id,
+        cache: false,
+        dataType: "json",
+        success: function () {
+          alert('Đã xóa user !');
+          location.reload();
+        },
+        error: function (xhr, error) {
+          console.debug(xhr);
+          console.debug(error);
+        },
+      });
+    }
+  }
+
+  function upgrade_user(id) {
+    if (confirm("Bạn có chắc chắn nâng người dùng này thành admin không ?")) {
+      $.ajax({
+        type: "get",
+        url: '/admin/upgrade/' + id,
+        cache: false,
+        dataType: "json",
+        success: function () {
+          alert('Đã upgrade user !');
+          location.reload();
+        },
+        error: function (xhr, error) {
+          console.debug(xhr);
+          console.debug(error);
+        },
+      });
+    }
+  }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,135 @@
+<% include general/header %>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/style.css">
+<div class="container" style="margin-top:20px;">
+
+  <div class="tab">
+    <button class="tablinks" onclick="display_info(event, 'user_info')" id="defaultOpen">
+      <i class="fa fa-user"></i>
+      <a></aclass> Thông tin cá nhân</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'do_test')">
+      <i class="fa fa-book"></i>
+      <a> Các bài thi đã đăng</a>
+    </button>
+    <button class="tablinks" onclick="display_info(event, 'ques_post')">
+      <i class="fa fa-question-circle"></i>
+      <a> Các câu hỏi đã đăng</a>
+
+    </button>
+  </div>
+
+  <div id="user_info" class="profile-content">
+    <p><b style="font-size: 30px;padding-left:275px;">Thông tin cá nhân</b></p>
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div class="profile-userpic">
+        <img src="./img/core-img/user.png" class="img-responsive" alt="">
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+      <!-- SIDEBAR USER TITLE -->
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+          <%= user.u_firstName + " " + user.u_lastName %>
+        </div>
+        <div class="profile-usertitle-job">
+          <%= user.u_email %>
+        </div>
+      </div>
+    </div>
+    <p><b>Họ tên</b>: <%= user.u_firstName + " " + user.u_lastName %></p>
+    <p><b>Email</b>: <%= user.u_email %></p>
+    <p><b>Mô tả bản thân</b>: <%= user.u_description %>
+    </p>
+  </div>
+
+  <div id="do_test" class="profile-content" style="display: none;">
+    <p><b>Tổng số bài thi đã đăng</b>: <%= tests.length %></p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">STT</th>
+          <th scope="col">Tên bài thi</th>
+          <th scope="col">Thời gian làm(phút)</th>
+          <th scope="col">Hành động</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (let i = 0; i < tests.length; i++) { %>
+        <tr>
+          <th scope="row"><%= i + 1 %></th>
+          <td><%= tests[i].t_name %></td>
+          <td><%= tests[i].t_time %></td>
+          <td><button class="btn btn-success" style="margin-right: 10px"><a href=<%= 'http://localhost:4000/tests/dotest/' + tests[i].t_id %>  style="color: white" target= "_blank">Xem bài thi</a></button></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div id="ques_post" class="profile-content" style="display: none;">
+    <p><b>Các câu hỏi đã đăng:</b><%= questions.length %></p>
+    <p>Chi tiết: </p>
+    <% for (var i = 0; i< questions.length; i++) {  %>
+    <p>
+      <div><b>Câu <%= i+1 %>:</b><%= questions[i].q_content %> ?</div>
+    </p>
+    <% }%>
+
+  </div>
+</div>
+<script>
+  function display_info(evt, info) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("profile-content");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace("active", "");
+    }
+    document.getElementById(info).style.display = "block";
+    evt.currentTarget.className += "active";
+  }
+
+  // Get the element with id="defaultOpen" and click on it
+  document.getElementById("defaultOpen").click();
+</script>
+<footer class="footer-area">
+  <!-- Top Footer Area -->
+  <div class="top-footer-area" style="height: 148px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <!-- Footer Logo -->
+          <div class="footer-logo">
+            <a href="index.html">
+              <h4 style="color:bisque;">Yourtest</h4>
+            </a>
+          </div>
+          <!-- Copywrite -->
+          <p><a href="#">
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              Copyright &copy;<script>
+                document.write(new Date().getFullYear());
+              </script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+              <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="js/bootstrap/popper.min.js"></script>
+<script src="js/plugins/plugins.js"></script>
+<!-- Active js -->
+<script src="js/active.js"></script>
+<script src="js/login.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+<% include header %>
+<link rel="stylesheet" href="css/do_test.css">
+<script src="js/jquery/jquery-2.2.4.min.js"></script>
+<div class="containerr">
+  <div class="left1">
+    <div class="title1"> Chọn nhanh câu hỏi
+    </div>
+    <div class="contain1">
+      <% for (let i = 0 ; i < questions.length; i++) {%>
+      <a href=<%= '#q' + (i+1) %> class="a_ques"><button class="cell1" id=<%= 'b_q' + (i+1) %>><%= i+1 %></button></a>
+      <% } %>
+    </div>
+    <div class="title1" style="text-align: center;" id="timer">
+    </div>
+  </div>
+
+  <div class="right1">
+    <h4 style="text-align: center"><%= test.t_name %></h4>
+    <div class="contain1">
+      <form action="/tests/success" method="post">
+      <% for (let i = 0;i < questions.length; i++ ) { %>
+      <% if (questions[i].q_type == 1) { %>
+      <div class="top1" id=<%= 'q' + (i+1) %>>
+        <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="1" id=<%= "cau" + i + 1%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i + 1 %>>A.Đúng</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value="0" id=<%= "cau" + i + 0%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i + 0 %>>B.Sai</label>
+      </div>
+    </div>
+    <% } else if (questions[i].q_type == 2) { n = 0;%>
+    <div class="top1" id=<%= 'q' + (i+1) %>>
+      <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+      <% for (j in answers) { if (answers[j].q_id == questions[i].q_id) {%>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" value=<%= answers[j].id %> id=<%= "cau" + i +j %> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+        <label class="form-check-label" for=<%= "cau" + i +j %>><%= String.fromCharCode((n++) + 65) %>.<%= answers[j].data %></label>
+      </div>
+      <% }} %>
+    </div>
+    <% } else { n = 0; %>
+      <div class="top1" id=<%= 'q' + (i+1) %>>
+        <div id="q1"><b>Câu <%= (i+1) %>: </b><%= questions[i].q_content %></div>
+        <% for (j in answers) { if (answers[j].q_id == questions[i].q_id) {%>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value= <%= answers[j].id %> id=<%= "cau" + i + j%> onclick="check_input(this)" name=<%=  questions[i].q_id %>>
+          <label class="form-check-label" for=<%= "cau" + i + j %>><%= String.fromCharCode((n++) + 65) %>.<%= answers[j].data %></label>
+        </div>
+        <% }} %>
+      </div>
+    <% }} %>
+
+  </div>
+</div>
+</div>
+<input style="display: none" name = 'total_ques' type="text" value=<%= questions.length %> />
+<input style="display: none" name = 'name_test' type="text" value='<%= test.t_name %>' />
+<input style="display: none" name = 'test_id' type="text" value=<%= test.t_id %> />
+<div style="margin-top: 20px;margin-bottom: 15px; text-align: center">
+  <button class="btn btn-success " onclick="functionSubmit()" type="button">Kết thúc bài thi</button>
+  <button style="display: none" id="bt_submmit_fake"></button>
+</div>
+</form>
+<script>
+  $(document).ready(function() {
+    // var pass = '<%= test.t_password %>';
+    // var x = prompt('Nhập mật khẩu (Nếu không có để trống)');
+    // if (x == pass) {
+  document.getElementsByClassName('containerr')[0].style.display = "inline-block";
+    // } else {
+    //   alert('Mật khẩu sai! ');
+    //   window.location.replace("http://localhost:4000");
+    // }
+  });
+  $(document).ready(function() {
+    var a_tag = $('.a_ques');
+    for (var i = 0; i < a_tag.length; i++) {
+      $(a_tag[i]).attr("href", window.location.href + $(a_tag[i]).attr('href'));
+    }
+  })
+
+  function functionSubmit() {
+    if (confirm("Bạn có chắc chắn nộp bài không ?")) {
+      alert('Đã nộp bài !');
+      $('#bt_submmit_fake').click();
+    }
+  }
+  window.onload = function() {
+    time = <%= test.t_time %> * 60, r = document.getElementById('timer'), tmp = time;
+    setInterval(function() {
+      var c = tmp--,
+        m = (c / 60) >> 0,
+        s = (c - m * 60) + '';
+      r.textContent = 'Thời gian làm bài ' + m + ':' + (s.length > 1 ? '' : '0') + s;
+      if (tmp <= 0 ) {
+        alert('Hết thời gian làm bài !');
+        $('#bt_submmit_fake').click();
+      }
+      tmp != 0 || (tmp = time);
+
+    }, 1000);
+  }
+</script>
+
+<script>
+  $(document).scroll(function() {
+    if ($('.left1').offset().top + $('.left1').height() >= $('footer').offset().top - 10)
+      $('#left1').css({
+        'position': 'absolute',
+        'bottom': 0,
+        'top': '30px'
+      });
+
+    if ($(document).scrollTop() + $('.left1').height() < $('footer').offset().top)
+      $('.left1').css({
+        'position': 'fixed',
+        'top': '100px',
+        'bottom': 'auto'
+      }); // restore when you scroll up
+  });
+
+  function check_input(input) {
+    var id = 'b_' + $(input).parent().parent().attr('id');
+    $('#' + id).css("background-color", "green");
+  }
+</script>
+<% include footer %>

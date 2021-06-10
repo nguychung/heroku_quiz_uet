@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <title>YourTests - Create &amp; Do Your Test|Home</title>
+  <base href="/">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ##### Header Area Start ##### -->
+  <header class="header-area">
+    <div class="clever-main-menu">
+      <div class="classy-nav-container breakpoint-off">
+        <!-- Menu -->
+        <nav class="classy-navbar justify-content-between" id="cleverNav">
+
+          <!-- Logo -->
+          <a class="nav-brand" href="/"><img src="img/core-img/logo.png" alt="" style="width: 190px;height: 80px;"></a>
+          <div class="classy-navbar-toggler">
+            <span class="navbarToggler"><span></span><span></span><span></span></span>
+          </div>
+          <!-- Menu -->
+          <div class="classy-menu">
+
+            <!-- Close Button -->
+            <div class="classycloseIcon">
+              <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
+            </div>
+
+            <!-- Nav Start -->
+            <div class="classynav">
+              <ul>
+                <li><a href="/">Trang chủ</a></li>
+                <li><a href="/questions/new">Thêm câu hỏi</a></li>
+                <li><a href="/tests/new">Tạo bài thi</a></li>
+                <li><a href="/tests">Làm bài thi</a></li>
+              </ul>
+
+              <!-- Search Button -->
+              <div class="search-area">
+                <form action="/search" method="get">
+                  <input type="search" name="key" id="search" placeholder="Tìm bài thi, người dùng" required>
+                  <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                </form>
+              </div>
+
+              <!-- Register / Login -->
+              <% if(typeof fullname !== 'undefined') { %>
+              <div class="login-state d-flex align-items-center">
+                <div class="user-name mr-30">
+                  <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="userName" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false"><%= fullname %></a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userName">
+                      <a class="dropdown-item" href="/profile">Thông tin cá nhân</a>
+                      <a class="dropdown-item" href="/logout">Đăng xuất</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="userthumb">
+                  <img src="img/core-img/user.png" alt="">
+                </div>
+              </div>
+              <% } else { %>
+              <div class="register-login-area">
+                <a href="/register" class="btn">Đăng ký</a>
+                <a href="/login" class="btn">Đăng nhập</a>
+              </div>
+              <% } %>
+            </div>
+            <!-- Nav End -->
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <% if (message.length > 0 && message != 'fail') { %>
+  <div class="alert alert-primary alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <%= message %>
+  </div>
+  <% }%>
+  <script>
+    let m = '<%= message %>'
+    if (m == 'fail') {
+      alert('Chưa có lượt làm bài nào !');
+      var myWindow = window.open("", "_self");
+      myWindow.close();
+    }
+  </script>
+  <!-- ##### Header Area End ##### -->
