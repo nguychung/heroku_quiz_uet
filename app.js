@@ -20,11 +20,11 @@ app.set('views', [path.join(__dirname, 'views'),
                   path.join(__dirname, 'views/general')]);
 app.set('view engine', 'ejs');
 var con = mysql.createConnection({
-  database: "yourtests",
-  host: "127.0.0.1",
-  port: "3306",
-  user: "root",
-  password: "root"
+  database: "db_a75bd6_duanuet",
+  host: "MYSQL5047.site4now.net",
+  //port: "3306",
+  user: "a75bd6_duanuet",
+  password: "Chidat@7299"
 });
 
 con.connect(function(err) {
