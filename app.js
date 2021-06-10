@@ -25,12 +25,20 @@ var con = mysql.createConnection({
   //port: "3306",
   user: "a75bd6_duanuet",
   password: "Chidat@7299"
+  // database: "yourtests",
+  // host: "127.0.0.1",
+  // port: "3306",
+  // user: "root",
+  // password: "root"
 });
 
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
 });
+// con.on('error', function(err) {
+//   console.log(err.PORT);
+// })
 global.db = con;
 app.use(session({
   secret: 'mySecretKey',

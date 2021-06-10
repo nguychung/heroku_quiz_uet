@@ -1,7 +1,8 @@
 <% include header %>
 <link rel="stylesheet" href="css/log_reg.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <!-- form login -->
-  <div class="container-fluid bg" style="height: 550px">
+  <div class="container-fluid bg" style="height: 80vh">
     <div class="row justify-content-center">
       <div class="col-md-3 col-sm-6 col-xs-12 row-container">
         <form action="/login" method="post">
@@ -14,14 +15,26 @@
             <div class="form-group">
               <label for="password">Mật khẩu</label>
               <input type="password" class="form-control" id="password" placeholder="Nhập mật khẩu" name="password" required>
-              <p class="passwordError"></p>
+              <input type="checkbox" style="margin-right:3px; width: 9px;" onclick="myFunction()">  <span style="font-size: 14px;">Hiển thị mật khẩu
+                <p class="passwordError"></p></span>
             </div>
-            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+            <button type="submit" class="btn btn-primary">Đăng nhập</button><br><br>
             <div>Chưa có tài khoản? <a href="/register">Đăng ký</a></div>
         </form>
       </div>
     </div>
   </div>
   <!--form login end-->
+  <script>
+    function myFunction() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+    x.className("fa-eye-slash")
+}
+  </script>
 
 <% include footer %>

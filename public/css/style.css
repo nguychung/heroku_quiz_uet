@@ -355,7 +355,10 @@ textarea:focus {
 /* :: 4.0 Header Area */
 .header-area {
   position: relative;
-  z-index: 200; }
+  z-index: 200;
+  position: sticky;
+  top: 0;
+ }
 
 .top-header-area {
   position: relative;
@@ -1614,6 +1617,21 @@ textarea:focus {
   padding-left: 7%;
   padding-right: 7%; }
 
+
+  .fa-eyee {
+    background-image: url('../../front-end/img/core-img/show_pw.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important; 
+    width: 50px !important;
+    height: 50px !important;
+}
+.field-iconn {
+    float: right;
+    margin-left: -25px;
+    margin-top: -25px;
+    position: relative;
+    z-index: 2;
+  }
 .post-a-comments {
   position: relative;
   z-index: 1; }
